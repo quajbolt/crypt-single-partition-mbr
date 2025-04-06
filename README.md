@@ -27,14 +27,14 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * debian or ubuntu
   ```sh
-  sudo apt-get install util-linux lvm2 cryptsetup mkinitcpio grub
+  sudo apt-get install util-linux coreutils lvm2 cryptsetup mkinitcpio grub
   ```
 
 * arch based
   ```sh
-  sudo pacman -Syy util-linux lvm2 cryptsetup mkinitcpio grub
+  sudo pacman -Syy util-linux coreutils lvm2 cryptsetup mkinitcpio grub
   ```
-*Note*: util-linux package contains fdisk binary which explains why it's used here
+*Note*: util-linux package contains fdisk binary and coreutils package contains sha512sum which explains why it's used here
 
 
 
