@@ -3,10 +3,10 @@
 
 ![Explaining]
 
-Initial ramdisk is used for lots of things by linux server admins by variety things, this is also very valid usecase.
+The initial ramdisk is used for many purposes by Linux server admins; this is also a valid use case.
 LVM (Logical Volume Manager) and cryptsetup are two powerful tools in the Linux ecosystem that complement each other seamlessly, providing both flexibility in storage management and robust security through encryption.
 
-There's some key features that you gain with lvm and cryptsetup!
+There are some key features that you gain with LVM and cryptsetup!
   - **Dynamic Resizing:** With LVM, you can easily resize your logical volumes as your storage needs change.
   - **Layered Architecture:** LVM operates at a higher level, managing logical volumes, while cryptsetup works at the block device level. This layered approach allows users to create encrypted logical volumes that can be resized or modified without compromising security.
   - **Snapshots and Backups:** LVM supports snapshots, allowing users to create point-in-time copies of their logical volumes.
@@ -14,23 +14,15 @@ There's some key features that you gain with lvm and cryptsetup!
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-
-
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* debian or ubuntu
+* Debian or Ubuntu
   ```sh
   sudo apt-get install util-linux coreutils lvm2 cryptsetup mkinitcpio grub
   ```
 
-* arch based
+* Arch based
   ```sh
   sudo pacman -Syy util-linux coreutils lvm2 cryptsetup mkinitcpio grub
   ```
@@ -69,7 +61,7 @@ sudo cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --hash sha512
 ```sh
 sudo cryptsetup luksOpen /dev/sdX0 matrix
 ```
-4. Now we need to create out LVM partitions
+3. Now we need to create out LVM partitions
 Create a Physical Volume (PV):
 ```sh
 sudo pvcreate /dev/mapper/matrix
@@ -93,7 +85,7 @@ sudo mkfs.ext4 /dev/matrix/lv_boot
 sudo mkfs.ext4 /dev/matrix/lv_root
 ```
 
-Now you need to mount them and keep installing your distro. but for now I'm gonna show an example for mounting. Setup part is up to user.
+Now you need to mount them and keep installing your distro. but for now, I'm gonna show an example for mounting. Setup part is up to user.
 ```sh
 sudo mount /dev/matrix/lv_root /mnt
 sudo mkdir -p /mnt/boot
@@ -134,7 +126,7 @@ Let's start with fstab
   sudo cryptsetup luksAddKey /dev/sdX0 /keyfile
   ```
 
-  Now our kernel are able to encrypt when using systemd, but of course you shouldn't trust system management tools because when they become faulty, you'll be not able to access your system. For that reason we'll gonna create a script that unlocks our partition and this script will gonna be a mkinitcpio hook with file=(/keyfile). Here's how to do it:
+  Now our kernel are able to encrypt when using systemd, but of course you shouldn't trust system management tools because when they become faulty, you'll be not able to access your system. For that reason, we'll gonna create a script that unlocks our partition, and this script will gonna be a mkinitcpio hook with ```file=(/keyfile)```. Here's how to do it:
 
   1. First we're gonna create our hook named "decryptmod"
   ```sh
@@ -170,7 +162,7 @@ Let's start with fstab
   }
   ```
 
-  3. Lastly we need to edit /etc/mkinitcpio.conf to show where to look for /keyfile and make use of our brand new "decryptmod" hook
+  3. Lastly we need to edit ```/etc/mkinitcpio.conf``` to show where to look for /keyfile and make use of our brand new "decryptmod" hook
   ```sh
   sudo nano /etc/mkinitcpio.conf
   ```
@@ -203,7 +195,7 @@ Let's start with fstab
   sudo grub-mkconfig -o /boot/grub/grub.cfg
   ```
 
-  This is the end of guide.
+  This is the end of the guide.
 
 
 <!-- CONTRIBUTING -->
